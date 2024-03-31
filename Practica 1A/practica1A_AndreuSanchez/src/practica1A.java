@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 
-public class Exemples_ErrorsExceptions {
+public class practica1A {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int opcio;
@@ -71,13 +71,20 @@ public class Exemples_ErrorsExceptions {
     static void outOfMemoryError(){
         List<Integer> list = new ArrayList<>();
         try {
+            System.out.println("Iniciem el procés...");
             while (true) {
-                list.add(999999999); // Añadimos un número grande a la lista
+                list.add(999999999);
             }
         } catch (OutOfMemoryError e) {
-            System.out.println("Se ha producido un error de exceso de memoria (OutOfMemoryError): " + e.getMessage());
+            System.out.println("S'ha produït un error d'excés de memòria (OutOfMemoryError): " + e.getMessage());
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println("Detalls addicionals:");
+            System.out.println("Clase de la excepción: " + e.getClass());
+            System.out.println("Rastreo de la pila:");
+            e.printStackTrace();
         } finally {
-            System.out.println("La mida de la llista és: " + list.size());
+            // Este bloque finally se ejecutará siempre, independientemente de si se lanza una excepción o no
+            System.out.println("El tamaño de la lista es: " + list.size());
         }
     }
     //------------------------------------------------------------------------------------------------------------------

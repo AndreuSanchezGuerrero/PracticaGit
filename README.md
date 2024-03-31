@@ -1,4 +1,4 @@
-#Practica de git
+# Practica de git
 
 **En este repositorio iré actualizando el trabajo de la práctica de programación.**
 
@@ -6,5 +6,7 @@
 	- Descargamos la práctica 1A: Enunciado + código de plantilla que nos da el profesor.
 	- Hacemos el commit para guardar el valor por defecto del código de la 1A.
 
+2. Commit 2.
+	- Afegim el nostre projecte i fem algunes modificacions a la primera funció.
 
 
