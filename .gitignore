@@ -1,0 +1,4 @@
+# Romandran exclosos de l’àrea de commit els fitxers amb extensió:
+*.tmp
+*.txt 
+*.bkp
