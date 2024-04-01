@@ -1,6 +1,6 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+package practica1A_AndreuSanchez.src;
+
+import java.util.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.io.IOException;
@@ -32,14 +32,14 @@ public class practica1A {
             scan.nextLine();
             switch (opcio) {
                 case 1:
-                    outOfMemoryError();
+                    OutOfMemoryError();
                     break;
                 case 2:
                     stackOverFlowError();
                     break;
                 case 3:
-                    illegalArgumentExceptionsMath();
                     illegalArgumentExceptionsArrays();
+                    illegalArgumentExceptionsMath();
                     break;
                 case 4:
                     arithmeticException();
@@ -68,45 +68,97 @@ public class practica1A {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    static void outOfMemoryError(){
+    static void OutOfMemoryError(){
         List<Integer> list = new ArrayList<>();
         try {
-            System.out.println("Iniciem el procés...");
+            System.out.println("Iniciant el procés per fer un OutOfMemoryError...");
             while (true) {
-                list.add(999999999);
+                list.add(999999999); //
             }
         } catch (OutOfMemoryError e) {
-            System.out.println("S'ha produït un error d'excés de memòria (OutOfMemoryError): " + e.getMessage());
-            System.out.println("-------------------------------------------------------------------------");
+            // Captuerm l'error OutOfMemory.
+            System.out.println("S'ha produït un error durant el procés: " + e.getMessage());
             System.out.println("Detalls addicionals:");
-            System.out.println("Clase de la excepción: " + e.getClass());
-            System.out.println("Rastreo de la pila:");
+            System.out.println("Classe de l´excepció: " + e.getClass());
+            System.out.println("Causa arrel: " + e.getCause());
+            System.out.println("Rastreig de la pila:");
             e.printStackTrace();
         } finally {
-            // Este bloque finally se ejecutará siempre, independientemente de si se lanza una excepción o no
-            System.out.println("El tamaño de la lista es: " + list.size());
+            // Mostrem la mida de la llista.
+            System.out.println("La mida de la llista és: " + list.size());
         }
     }
     //------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Trec el e.getMessage, perquè surt com null i el trace perquè si no surten moltes traces.
     static void stackOverFlowError() {
         try {
+            System.out.println("Iniciant procés per fer un stackOverFlowError...");
             cridaRecursiva(0);
         } catch (StackOverflowError e) {
             System.out.println("S'ha produït un error de desbordament de la pila (StackOverflowError)");
+            System.out.println("Detalls addicionals:");
+            System.out.println("Classe de l'excepció: " + e.getClass());
+            System.out.println("Causa arrel: " + e.getCause());
+        } finally {
+            System.out.println("Fi del mètode stackOverFlowError, l'error ha sigut capturat");
         }
     }
+
     public static void cridaRecursiva(int i) {
         System.out.println("Número: " + i);
-        cridaRecursiva(i + 1); // Crida recursiva infinita
+        cridaRecursiva(i + 1);
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
     static void illegalArgumentExceptionsArrays(){
         int[] array = {10, 20, 30, 40, 50};
+        Scanner scan = new Scanner(System.in);
         try {
-            int index = trobarElement(array, 60); // provem de trobar l'index d'un element que no es troba a l'array
+            // Preguntar a l'usuari si vol canviar el valor d'alguna posició.
+            System.out.println("Començarem amb el mètode illegalArgumentExceptionsArrays");
+            System.out.println("-------------------------------------------------------------------------------------");
+            System.out.println("Tenim els seguents valors a la llista: "+ Arrays.toString(array));
+            System.out.println("Vols canviar el valor d'alguna posició de la llista? (S/N)");
+            String response = scan.nextLine();
+            if (response.equalsIgnoreCase("S")) {
+                System.out.println("Introdueix l'índex de la posició a canviar (0 - " + (array.length - 1) + "):");
+                int position = scan.nextInt();
+                System.out.println("Introdueix el nou valor:");
+                int newValue = scan.nextInt();
+
+                // Canviar el valor en la posició especificada
+                array[position] = newValue;
+                System.out.println("Valor canviat correctament.");
+            } else {
+                System.out.println("No s'han realitzat canvis.");
+            }
+            System.out.println();
+            System.out.println("Digues un número i et diré en quina posició de la llista es troba.");
+            int num = scan.nextInt();
+            int index = trobarElement(array, num); // provem de trobar l'índex d'un element que no es troba a l'array
+            System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("index element: " + index);
         } catch (IllegalArgumentException e) {
+            System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("S'ha produït un error d'argument no vàlid (IllegalArgumentException): " + e.getMessage());
+            System.out.println("Detalls addicionals:");
+            System.out.println("       Classe de l´excepció: " + e.getClass());
+            Throwable causa = e.getCause();
+            if (causa != null) {
+                System.out.println("       La causa de l'excepció és: " + causa.getMessage());
+            } else {
+                System.out.println("       L'excepció no te causa coneguda.");
+            }
+        }
+        finally {
+            System.out.println("Fi del mètode (IllegalArgumentException)");
+            System.out.println("Elements de la llista: " + Arrays.toString(array));
+            System.out.println("Element més gran:" + Arrays.stream(array).max());
+            System.out.println("Element més petit:" + Arrays.stream(array).min());
         }
     }
 
@@ -116,16 +168,34 @@ public class practica1A {
                 return i;
             }
         }
-        throw new IllegalArgumentException("L'element no es troba a l'array");
+        throw new IllegalArgumentException("L'element " + element + " no es troba a l'array");
     }
+    //------------------------------------------------------------------------------------------------------------------
 
-
+    //------------------------------------------------------------------------------------------------------------------
     static void illegalArgumentExceptionsMath(){
+        Scanner scan = new Scanner(System.in);
         try {
-            int result = arrelQuadrada(-1); // Intentem obtenir l'arrel quadrada d'un nombre negatiu
+            System.out.println();
+            System.out.println();
+            System.out.println("Continuem amb el mètode illegalArgumentExceptionsMath");
+            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("De quin número vols fer l'arrel cuadrada? ");
+            int numArrel = scan.nextInt();
+            System.out.println("--------------------------------------------------------------------------------------");
+            int result = arrelQuadrada(numArrel); // Intentem obtenir l'arrel quadrada d'un nombre negatiu
             System.out.println("Resultat: " + result);
         } catch (IllegalArgumentException e) {
+            System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("S'ha produït un error d'argument no vàlid (IllegalArgumentException): " + e.getMessage());
+            System.out.println("Detalls addicionals:");
+            System.out.println("       Classe de l´excepció: " + e.getClass());
+            Throwable causa = e.getCause();
+            if (causa != null) {
+                System.out.println("       La causa de l'excepció és: " + causa.getMessage());
+            } else {
+                System.out.println("       L'excepció no te causa coneguda.");
+            }
         }
     }
 
@@ -135,13 +205,35 @@ public class practica1A {
         }
         return (int) Math.sqrt(number);
     }
+    //------------------------------------------------------------------------------------------------------------------
 
+    //------------------------------------------------------------------------------------------------------------------
     static void arithmeticException(){
+        int resultat;
         try {
-            int resultat = dividir(10, 0); // Intentem dividir 10 per zero
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Diguem un dividend: ");
+            int dividend = scan.nextInt();
+            System.out.println("Diguem un divisor: ");
+            int divisor = scan.nextInt();
+            resultat = dividir(dividend, divisor);
             System.out.println("Resultat de la divisió: " + resultat);
         } catch (ArithmeticException e) {
+            System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("S'ha produït un error d'aritmètica (ArithmeticException): " + e.getMessage());
+            System.out.println("Detalls addicionals:");
+            System.out.println("       Classe de l´excepció: " + e.getClass());
+            Throwable causa = e.getCause();
+            if (causa != null) {
+                System.out.println("       La causa de l'excepció és: " + causa.getMessage());
+            } else {
+                System.out.println("       L'excepció no te causa coneguda.");
+            }
+        }finally {
+            // Bloque finally para registrar la finalización del método y restaurar el estado si es necesario
+            System.out.println("El método arithmeticException ha finalizado.");
+            // Realitzem una operació de neteja.
+            resultat = 0;
         }
     }
 
@@ -152,6 +244,9 @@ public class practica1A {
         }
         return dividend / divisor;
     }
+    //------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
     static void indexOutOfBoundException(){
         int[] array = {1, 2, 3, 4, 5};
         try {
