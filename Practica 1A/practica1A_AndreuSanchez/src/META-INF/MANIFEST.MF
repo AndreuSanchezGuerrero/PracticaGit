@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: practica1A_AndreuSanchez.src.practica1A
+
