@@ -1,5 +1,3 @@
-package practica1A_AndreuSanchez.src;
-
 import java.util.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -80,6 +78,8 @@ public class practica1A {
             }
         } catch (OutOfMemoryError e) {
             // Captuerm l'error OutOfMemory.
+            //Netejem l'array per no lliurar la memòria, si no no podrem ni capturar el catch, ja que no tenim RAM.
+            list.clear();
             System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("S'ha produït un error durant el procés (OutOfMemoryError): " + e.getMessage());
             System.out.println("Detalls addicionals:");
@@ -90,14 +90,15 @@ public class practica1A {
             } else {
                 System.out.println("       La causa de l'excepció és: Fuga de memòria.");
             }
-            System.out.println("Rastreig de la pila:");
-            e.printStackTrace();
         } finally {
+            System.out.println("---------------------------------------------------------------------------------------");
+            System.out.println("Fi del mètode OutOfMemoryError");
             // Mostrem la mida de la llista.
+            if (list.isEmpty())
+                System.out.println("No s'han introduit dades a la llista o ha sigut buidada perquè s'ha produit un error de memòria");
             System.out.println("La mida de la llista és: " + list.size());
-            //Netejem l'array per no ocupar memoria.
-            list = null;
-            System.out.println("Llista netejada");
+            //Per fer un espai
+            System.out.println();
         }
     }
     //------------------------------------------------------------------------------------------------------------------
