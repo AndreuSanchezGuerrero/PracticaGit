@@ -1,12 +1,28 @@
 # Practica de git
 
-**En este repositorio iré actualizando el trabajo de la práctica de programación.**
+**En aquest repositori aniré actualitzant la feina de la pràctica de programació.**
 
-1. Commit 1. 
-	- Descargamos la práctica 1A: Enunciado + código de plantilla que nos da el profesor.
-	- Hacemos el commit para guardar el valor por defecto del código de la 1A.
+## Primera part.
+Preparem el repositori amb el contingut de les pràctiques per defecte.
 
-2. Commit 2.
-	- Afegim el nostre projecte i fem algunes modificacions a la primera funció.
+## Segona part.
+Separem per branques:
+	1. Branch per fer la modificació de la pràctica1A.
+ 	2. Branch per fer la modificació de la pràctica1B.
+
+## Tercera part.
+Pràctica 1A:
+	1. Modifiquem la pràctica 1A.
+	2. Una vegada finalitzada, la fusionem amb la branca master.
+
+## Quarta part.
+Pràctica 1B:
+	1. Modifiquem la pràctica 1B.
+	2. Una vegada finalitzada, la fusionem amb la branca master.
+
+ ## Cinquena part.
+ Actualització final del README i revisió final de les pràctiques.
+
+
 
 
